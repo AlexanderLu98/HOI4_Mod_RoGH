@@ -14,6 +14,9 @@
 		x = 0
 	}
 
+	
+	default = no
+
 	focus = {
 		id = army_effort
 		icon = GFX_goal_generic_allies_build_infantry
@@ -251,6 +254,49 @@
 				technology = marines2
 				technology = tech_mountaineers
 				technology = tech_mountaineers2
+			}
+		}
+	}
+
+	focus = {
+		id = industrial_effort
+		icon = GFX_goal_generic_production
+		x = 13
+		y = 0
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1.0
+				uses = 1
+				category = industry
+			}
+		}
+
+		ai_will_do = {
+			factor = 3
+			modifier = {
+				factor = 0
+				date < 1939.1.1
+				OR = { 
+					# we dont want chinese minors to go crazy on slots early since they get eaten
+					tag = GXC 
+					tag = YUN
+					tag = SHX
+					tag = XSM
+					tag = BEL
+					tag = LUX
+					tag = HOL
+					tag = DEN
+
+					# we also dont want tiny nations to go crazy with slots right away
+					num_of_controlled_states < 2
+				}				
 			}
 		}
 	}
